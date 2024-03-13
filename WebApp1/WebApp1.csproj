@@ -5,19 +5,27 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-WebApp1-ae7376a9-aaf4-42bd-be59-18f6a89d37b9</UserSecretsId>
+    <ResolveStaticWebAssetsInputsDependsOn>RemoveIdentityAssets</ResolveStaticWebAssetsInputsDependsOn>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
-  </ItemGroup>
+  <Target Name="RemoveIdentityAssets">
+    <ItemGroup>
+      <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
-  </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <StaticWebAsset Remove="@(StaticWebAsset)" Condition="%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'" />
+    </ItemGroup>
+  </Target>
+
 
 </Project>
